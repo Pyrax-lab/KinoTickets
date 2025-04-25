@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+
+{% block main %}
+<h2 class="mb-4">Сейчас в кино</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for i in films %}
+    <div class="col">
+        <div class="card movie-card h-100 shadow-sm">
+
+            {% thumbnail i.image "600x400" as im %}
+                <img src="{{ im.url }}" class="card-img-top" alt="{{ i.title }}">
+            {% endthumbnail %}
+            
+            <div class="card-body">
+
+                <a href="{% url "film" i.slug %}">{{i.name}}</a>
+                <p class="card-text text-muted">{{ i.description|truncatewords:20 }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
