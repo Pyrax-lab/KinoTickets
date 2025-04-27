@@ -2,3 +2,5 @@ Django
 pillow
 django-bootstrap5
 sorl-thumbnail
+channels
+daphne

@@ -11,3 +11,21 @@ body {
 .footer {
     border-top: 1px solid #dee2e6;
 }
+
+
+.calendar-square {
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.green {
+    background-color: #2ecc71; /* зелёный */
+}
+
+.white {
+    background-color: #ffffff; /* белый */
+}
