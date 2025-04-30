@@ -5,7 +5,7 @@
 <div class=></div>
 <div class="calendar-square white"></div>
 
-    <h1>{{curent_film.name}}</h1>
+    <h1 id="curent_film_id">{{curent_film.name}}</h1>
     
 
         <div id="container_for_square">
@@ -13,12 +13,20 @@
         </div>
 
 <script>
+    
+    var film = document.getElementById('curent_film_id')
+    film = film.firstChild.data
     var socket = new WebSocket('ws://localhost:8000/ws/kinozal/')
+
+    socket.onopen = function(event){
+        socket.send(film)
+    }
 
     socket.onmessage = function(event){
     
 
         var data = JSON.parse(event.data);  
+        console.log(data)
         count = data.message
         var container = document.getElementById('container_for_square');
 
@@ -28,6 +36,8 @@
             container.appendChild(green)
         }
     }
+    
+    
     
 </script>
 
