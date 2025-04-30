@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block main %}
-<div class=></div>
-<div class="calendar-square white"></div>
-
+{% comment %} <div class="calendar-square green" data-tooltip="12:00 Привет"></div>
+    <div class="calendar-square white" data-tooltip="15:30 Привет ещё раз"></div>
+ {% endcomment %}
+ 
     <h1 id="curent_film_id">{{curent_film.name}}</h1>
     
+    <div id="container_for_square">
+        
+    </div> 
 
-        <div id="container_for_square">
+    <div id="tooltip"></div>
 
-        </div>
-
-<script>
-    
+        
+        
+<script> 
     var film = document.getElementById('curent_film_id')
     film = film.firstChild.data
     var socket = new WebSocket('ws://localhost:8000/ws/kinozal/')
@@ -26,19 +28,44 @@
     
 
         var data = JSON.parse(event.data);  
-        console.log(data)
+        
+        much_locals = data.list_of_locals
         count = data.message
+        
         var container = document.getElementById('container_for_square');
 
         for ( var i = 0; i < count; i++){
             var green = document.createElement('div')
             green.className = "calendar-square green"
+            green.setAttribute("data-tooltip", "qqqqq")
             container.appendChild(green)
         }
+
+
+        const tooltip = document.getElementById('tooltip');
+
+        document.querySelectorAll('.calendar-square').forEach(square => {
+        square.addEventListener('mouseenter', (event) => {
+        tooltip.innerText = square.dataset.tooltip;
+        tooltip.style.display = 'block';
+      });
+  
+      square.addEventListener('mousemove', (event) => {
+        tooltip.style.left = event.pageX + 10 + 'px';
+        tooltip.style.top = event.pageY + 10 + 'px';
+      });
+  
+      square.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+    });
     }
+
+
     
-    
-    
+
 </script>
 
 {% endblock main %}
+    
+

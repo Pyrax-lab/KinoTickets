@@ -16,9 +16,13 @@ class KinoWb(WebsocketConsumer):
 
     def receive(self, text_data):
         curent_film = get_object_or_404(Film, name=text_data)
-        locals = Midlle_locals.objects.filter(film_key = curent_film)
-        count = locals[0].count_of_locals
-      
+
+        locals_midlle = Midlle_locals.objects.filter(film_key = curent_film)[0]
+        count = locals_midlle.count_of_locals
+
+        meta_info = locals_midlle.meta
+        locals_list = list(Locals.objects.filter(meta=meta_info).values("occupied"))
+        
         
 
-        self.send(json.dumps({"message": count}))
+        self.send(json.dumps({"message": count, "list_of_locals": locals_list}))
