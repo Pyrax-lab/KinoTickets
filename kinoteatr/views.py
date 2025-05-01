@@ -8,3 +8,9 @@ def film(request, kino_slug):
     
 
     return render(request, "zal.html", context={'curent_film': curent_film})
+
+
+
+def buy_place(request):
+    
+    

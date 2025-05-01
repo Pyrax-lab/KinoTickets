@@ -30,15 +30,21 @@
         var data = JSON.parse(event.data);  
         
         much_locals = data.list_of_locals
+        console.log(much_locals)
         count = data.message
-        
+
         var container = document.getElementById('container_for_square');
 
         for ( var i = 0; i < count; i++){
-            var green = document.createElement('div')
-            green.className = "calendar-square green"
-            green.setAttribute("data-tooltip", "qqqqq")
-            container.appendChild(green)
+            var square = document.createElement('div')
+            if (much_locals[i].occupied == false ){
+                square.className = "calendar-square green"
+            }
+            else {
+                 square.className = "calendar-square white"
+            }
+            square.setAttribute("data-tooltip", `Place: ${i}`)
+            container.appendChild(square)
         }
 
 
